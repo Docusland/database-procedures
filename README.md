@@ -156,3 +156,7 @@ BEGIN
 END //
 DELIMITER ;
 ```
+
+
+Optimisations de base de données 
+==
