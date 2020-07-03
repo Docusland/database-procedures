@@ -169,3 +169,8 @@ Optimisations de base de données
 * Mettre un LIMIT 1 si vous n'attendez qu'un seul enregistrement
 * Activer le cache (SHOW VARIABLES LIKE 'query_cache_size'; SET GLOBAL query_cache_size = 15728640 ; ). Attention ceci est temporaire et les paramètres sont à appliquer dans le fichier my.cnf une fois validés.
 * Détecter les requêtes coûteuses via long_query_time et log-slow-queries dans le fichier my.cnf
+
+Outils et sources
+==
+* [Mysqldump backup and restore](https://webcheatsheet.com/sql/mysql_backup_restore.php)
+* [Mysqldump options](https://dev.mysql.com/doc/refman/8.0/en/mysqldump.html)
