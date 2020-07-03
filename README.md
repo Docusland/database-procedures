@@ -160,3 +160,12 @@ DELIMITER ;
 
 Optimisations de base de données 
 ==
+* [MysqlTuner](https://github.com/major/MySQLTuner-perl)
+* Indexer les champs pertinents. Ainsi, cette tâche est complexe, minucieuse et dépendante de l'application sur laquelle vous travaillez. Il faut lire tous les SELECT afin de voir quels indexes sont pertinents. 
+* Retirer les indexes inutiles
+* SELECT SQL_NO_CACHE * FROM table;
+* Eviter le Select *
+* ANALYZE, EXPLAIN et VACUUM sont à appliquer et utiliser
+* Mettre un LIMIT 1 si vous n'attendez qu'un seul enregistrement
+* Activer le cache (SHOW VARIABLES LIKE 'query_cache_size'; SET GLOBAL query_cache_size = 15728640 ; ). Attention ceci est temporaire et les paramètres sont à appliquer dans le fichier my.cnf une fois validés.
+* Détecter les requêtes coûteuses via long_query_time et log-slow-queries dans le fichier my.cnf
