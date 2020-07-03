@@ -84,3 +84,48 @@ BEGIN
 END |
 DELIMITER ;
 ```
+
+Cursors
+==
+
+Réaliser un boucle listant les musiciens du groupe 24
+
+Corrections
+===
+-----
+
+```sql
+DROP PROCEDURE loop_on_musicians;
+DELIMITER |
+CREATE PROCEDURE loop_on_musicians(IN g_id VARCHAR(100))
+BEGIN
+    DECLARE v_nom, v_prenom VARCHAR(100);
+    
+    -- On déclare fin comme un BOOLEAN, avec FALSE pour défaut
+    DECLARE fin BOOLEAN DEFAULT FALSE;                     
+    
+    DECLARE curs_musiciens CURSOR
+        FOR SELECT musiciens.nom, musiciens.prenom from musiciens, groupes_musiciens
+          where groupes_musiciens.groupes_id_groupe = g_id
+          and musiciens.id_musicien = groupes_musiciens.musiciens_id_musicien;
+
+    -- On utilise TRUE au lieu de 1
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET fin = TRUE; 
+
+    OPEN curs_musiciens;                                    
+
+    loop_curseur: LOOP                                                
+        FETCH curs_musiciens INTO v_nom, v_prenom;
+
+        IF fin THEN     -- Plus besoin de "= 1"
+            LEAVE loop_curseur;
+        END IF;
+                   
+        SELECT CONCAT(v_prenom, ' ', v_nom) AS 'Musician';
+    END LOOP;
+
+    CLOSE curs_musiciens; 
+END|
+DELIMITER ;
+
+CALL loop_on_musicians(24);
