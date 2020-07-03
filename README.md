@@ -129,3 +129,30 @@ END|
 DELIMITER ;
 
 CALL loop_on_musicians(24);
+```
+
+Triggers
+==
+
+Réaliser un trigger qui, lorsque la photo a été modifiée, stocke au sein d'une table `anciennes_photos` les anciennes images référencées.
+
+Ceci peut être pratique pour automatiser un script qui parcourera cette table et supprimera les fichiers référencés.
+
+```sql
+CREATE TABLE anciennes_photos (id INT PRIMARY KEY NOT NULL AUTO_INCREMENT , path VARCHAR(255));
+
+DELIMITER //
+
+CREATE TRIGGER  update_photo
+    BEFORE UPDATE
+    ON photos FOR EACH ROW
+
+BEGIN  
+    IF OLD.photo != NEW.photo 
+    THEN
+        INSERT INTO anciennes_photos (path) VALUES (OLD.photo);
+    END IF 
+
+END //
+DELIMITER ;
+```
