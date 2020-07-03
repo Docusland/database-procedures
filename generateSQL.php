@@ -111,7 +111,7 @@
     $file .= generatePhotos($faker, $nb_groupes);
     $file .= generateGroupeMusiciens($nb_groupes, $nb_musiciens);
     $file .= generateGroupeInstruments($nb_groupes, $nb_instruments);
-
+    $file .= generateMusiciensInstruments($nb_instruments, $nb_musiciens);
     $fp = fopen('data.sql', 'w');
     fwrite($fp, $file);
     fclose($fp);
