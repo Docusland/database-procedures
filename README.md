@@ -174,3 +174,61 @@ Outils et sources
 ==
 * [Mysqldump backup and restore](https://webcheatsheet.com/sql/mysql_backup_restore.php)
 * [Mysqldump options](https://dev.mysql.com/doc/refman/8.0/en/mysqldump.html)
+
+
+Exemple de fichier d'export
+==
+L'objectif est de réaliser un script permettant d'automatiser les backups de la basede données. 
+Ce script peut ensuite être mis au sein de taches planifiées.
+
+Script BAT réalisé par Dorian.
+
+```bash
+@echo off
+
+echo ---------------------------------------------------------------
+echo ---------------------------------------------------------------
+echo  Generation du fichier batch pour la sauvegarde est en cours...
+echo ---------------------------------------------------------------
+echo ---------------------------------------------------------------
+
+for /f "tokens=2 delims==" %%a in ('wmic OS Get localdatetime /value') do set "dt=%%a"
+set "YYYY=%dt:~0,4%" & set "MM=%dt:~4,2%" & set "DD=%dt:~6,2%"
+
+set "datestamp=%YYYY%%MM%%DD%"
+set "file=%1_backupfile_%datestamp%.sql"
+echo %file%
+
+mysqldump --routines -u root --databases %1 > D:/Cours/DATABASE_ADMINISTRATION/backup_db/%file%
+
+echo ---------------------------------------------------------------
+echo ---------------------------------------------------------------
+echo ------------------------------FIN------------------------------
+echo ---------------------------------------------------------------
+echo ---------------------------------------------------------------
+```
+
+Le script d'import associé
+
+```bash
+@echo off
+
+echo ---------------------------------------------------------------
+echo ---------------------------------------------------------------
+echo  IMPORT BASE DE DONNEE MYDB
+echo ---------------------------------------------------------------
+echo ---------------------------------------------------------------
+
+set dir= "D:/Cours/DATABASE_ADMINISTRATION/backup_db/"
+
+mysql -u root < %dir%%1.sql
+
+
+echo ---------------------------------------------------------------
+echo ---------------------------------------------------------------
+echo ------------------------------FIN------------------------------
+echo ---------------------------------------------------------------
+echo ---------------------------------------------------------------
+
+pause
+```
