@@ -1,9 +1,16 @@
-Exercise
+Exercice
 =
 
-This project is only meant to be used for practicing on databases. Generated a dump data.sql file for Segolène's mydb database.
+Ce projet est à destination d'étudiants pour s'entrainer à réaliser des scripts de base de donnée.
+Basé sur une modélisation de base réalisée par Segolène.
 
-Requires [composer](https://getcomposer.org/)
+Importer des données
+===
+Importez le fichier structure.sql ainsi que le fichier data.sql
+
+Vous pouvez aussi générer un nouveau jeu de données.
+===
+Requiert [composer](https://getcomposer.org/)
 
 Installation
 ==
